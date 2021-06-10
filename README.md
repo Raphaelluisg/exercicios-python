@@ -1,2 +1,2 @@
 # exercicios-python
-repositorios aula python
+repositorios aulas python
