@@ -12,8 +12,9 @@
 from random import randint
 from time import sleep
 lista = (" ", "Pedra", "Papel", "Tesoura")
-comp = randint(1,3)
-partidas = ' '
+jogosn = list()
+partidas = 0
+jogar_novamente = 'Ss'
 print('-'*41)
 print('PEDRA - PAPEL - TESOURA'.center(40))
 print('-'*41)
@@ -21,37 +22,63 @@ print('''\n[ 1 ] Pedra
 [ 2 ] PAPEL
 [ 3 ] TESOURA\n''')
 print('='*30)
-player = int(input('Qual é a sua opção?: '))
+comp = randint(1,3)
+player = int(input('\nQual é a sua opção?: '))
+print('Você escolheu: {}'.format(lista[player]))
+print('O computador escolheu: {}'.format(lista[comp]))
 print('\n             JO')
 sleep(1)
 print('\n             KEN')
 sleep(1)
-print('\n             PO')
-sleep(1)
+print('\n             PO!!')
+sleep(0.5)
 print('='*30)
-print('Você escolheu: {}'.format(lista[player]))
-print('O computador escolheu: {}'.format(lista[comp]))
-while partidas not in 'Nn':
-    partidas = str(input('Deseja jogar novamente? [S/N]'))
-if comp == 1: #Computador jogando Pedra
-    if player == 1:
-        print('EMPATE')
-    elif player == 2:
-        print('VOCÊ GANHOU')
-    elif player == 3:
-        print('VOCÊ PERDEU')
-elif comp == 2: #Computador jogando Papel
-    if player == 1:
-        print('VOCÊ PERDEU')
-    elif player == 2:
-        print('EMPATE')
-    elif player == 3:
-        print('VOCÊ GANHOU')
-elif comp == 3: #Computador jogando Tesoura
-    if player == 1:
-        print('VOCÊ GANHOU')
-    elif player == 2:
-        print('VOCÊ PERDEU')
-    elif player == 3:
-        print('EMPATE')
-
+while jogar_novamente == 'Ss':
+    resultado = vitoriac = vitoriap = contagemvc = contagemvp = 0
+    partidas = int(input('Quantos jogos deseja realizar? '))
+    for i, v in enumerate(jogosn):
+        print(f'Jogo {i+1}: {sorted(v)}')
+        sleep(0.5)
+    while partidas > resultado:
+        resultado +=1
+        print(f' Partida {resultado}')
+        if comp == 1: #Computador jogando Pedra
+            if player == 1:
+                print('EMPATE')
+            elif player == 2:
+                print('VOCÊ GANHOU')
+                vitoriap +=1
+            elif player == 3:
+                print('VOCÊ PERDEU')
+                vitoriac +=1
+        elif comp == 2: #Computador jogando Papel
+            if player == 1:
+                print('VOCÊ PERDEU')
+                vitoriac +=1
+            elif player == 2:
+                print('EMPATE')
+            elif player == 3:
+                print('VOCÊ GANHOU')
+                vitoriap +=1
+        elif comp == 3: #Computador jogando Tesoura
+            if player == 1:
+                print('VOCÊ GANHOU')
+                vitoriap +=1
+            elif player == 2:
+                print('VOCÊ PERDEU')
+                vitoriac +=1
+            elif player == 3:
+                print('EMPATE')
+        else:
+            print("Jogada Inválida.")
+            partidas +=1
+    jogar_novamente = input('Deseja continuar? [S/N]: ')
+    if jogar_novamente == "Ss":
+            continue
+    else:
+            print(f'\nFIM DE JOGO.\n\n Foram {vitoriap} vitória(s) suas contra {vitoriac} contra o computador.')
+            break
+    if contagemvp > contagemvc:
+        print(f'Você ganhou, com um total de {contagemvp} vitórias.')
+    else:
+        print(f'O computador ganhou com {contagemvc} vitórias.')
